@@ -12,20 +12,20 @@ import javafx.stage.Stage;
 
 public class MainWindow extends Application {
 
-	static Label text = new Label("This is text.");
-	static Button hello = new Button("Click me!");
+	static Label status = new Label("Server has not started.");
+	static Button start = new Button("Start server");
 	
 	@Override
 	public void start(Stage primaryStage) {
 		
 		primaryStage.getIcons().add(new Image("file:/home/spiral6/Pictures/hologram.jpg"));
 		
-		hello.setOnAction(e -> click());
+		start.setOnAction(e -> click());
 		
 		VBox v = new VBox();
 		v.setPadding(new Insets(10));
-		v.getChildren().add(text);
-		v.getChildren().add(hello);
+		v.getChildren().add(status);
+		v.getChildren().add(start);
 		
 		Scene scene = new Scene(v, 400, 400);
 		primaryStage.setScene(scene);
@@ -34,8 +34,14 @@ public class MainWindow extends Application {
 	}
 	
 	public static void click(){
-		text.setText("This is still text.");
-		hello.setText("Clicking me again does nothing.");
+		if(status.getText().equals("Server has not started.")){
+			status.setText("Server has started.");
+			//TODO Start the server program
+		}
+		else{
+			System.out.println("Server has already started. No need to click this button.");
+		}
+	
 	}
 
 	public static void main(String[] args) {
