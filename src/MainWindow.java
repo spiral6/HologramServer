@@ -7,8 +7,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -16,7 +14,7 @@ public class MainWindow extends Application {
 
 	static Label status = new Label("Server has not started.");
 	static Button start = new Button("Start server");
-	static Thread server;
+	static Server server;
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -49,21 +47,27 @@ public class MainWindow extends Application {
 		if(start.getText().equals("Start server")){
 			status.setText("Server has started.");
 			start.setText("Stop server");
-			server.start();
+			if(!server.ranOnce){
+				server.start();
+			}
+			else{
+				server = new Server();
+				server.start();
+			}
+			
 			//TODO Start the server program
 		}
 		else if(start.getText().equals("Stop server")){
-			server.interrupt();
+			//server.interrupt();
 			status.setText("Server has closed.");
 			start.setText("Start server");
-			server.wait();
-			server = new Thread(new Server());
+			server.close();
 		}
 	
 	}
 
 	public static void main(String[] args) throws SocketException {
-		server = new Thread(new Server());
+		server = new Server();
 		launch(args);
 	}
 }
