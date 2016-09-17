@@ -1,4 +1,6 @@
 
+import java.net.SocketException;
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -14,13 +16,23 @@ public class MainWindow extends Application {
 
 	static Label status = new Label("Server has not started.");
 	static Button start = new Button("Start server");
+	static Thread server;
 	
 	@Override
 	public void start(Stage primaryStage) {
 		
 		primaryStage.getIcons().add(new Image("file:/home/spiral6/Pictures/hologram.jpg"));
 		
-		start.setOnAction(e -> click());
+		start.setOnAction(e -> {
+			try {
+				click();
+			} catch (SocketException e1) {
+				e1.printStackTrace();
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
 		
 		VBox v = new VBox();
 		v.setPadding(new Insets(10));
@@ -33,18 +45,25 @@ public class MainWindow extends Application {
 		primaryStage.show();
 	}
 	
-	public static void click(){
-		if(status.getText().equals("Server has not started.")){
+	public static void click() throws SocketException, InterruptedException{
+		if(start.getText().equals("Start server")){
 			status.setText("Server has started.");
+			start.setText("Stop server");
+			server.start();
 			//TODO Start the server program
 		}
-		else{
-			System.out.println("Server has already started. No need to click this button.");
+		else if(start.getText().equals("Stop server")){
+			server.interrupt();
+			status.setText("Server has closed.");
+			start.setText("Start server");
+			server.wait();
+			server = new Thread(new Server());
 		}
 	
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SocketException {
+		server = new Thread(new Server());
 		launch(args);
 	}
 }
