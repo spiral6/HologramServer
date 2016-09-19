@@ -11,6 +11,8 @@
 *.json
 /config
 /bin
+*.project
+*.classpath
 # Logs and databases #
 ######################
 *.log
