@@ -12,7 +12,6 @@ public class Server extends Thread{
 	
 	public Server() throws SocketException{
 		socket = new DatagramSocket(port);
-		System.out.println(socket.isConnected());
 		//socket.setSoTimeout(5000);
 	}
 	
@@ -37,7 +36,8 @@ public class Server extends Thread{
 				}
 		}
 		catch(Exception e){
-			System.out.println("\n" + e);
+			//System.out.println("\n" + e);
+			System.out.println("Server closed.");
 		}
 	}
 	

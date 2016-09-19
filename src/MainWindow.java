@@ -19,7 +19,7 @@ public class MainWindow extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		
-		primaryStage.getIcons().add(new Image("file:/home/spiral6/Pictures/hologram.jpg"));
+		primaryStage.getIcons().add(new Image("/src/hologram.png"));
 		
 		start.setOnAction(e -> {
 			try {
@@ -37,7 +37,7 @@ public class MainWindow extends Application {
 		v.getChildren().add(status);
 		v.getChildren().add(start);
 		
-		Scene scene = new Scene(v, 400, 400);
+		Scene scene = new Scene(v, 100, 100);
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Hello world!");
 		primaryStage.show();
