@@ -27,7 +27,7 @@ public class Server extends Thread{
 						ranOnce = true;
 						socket.receive(receivePacket);
 						String text = new String(receivePacket.getData(), 0, receivePacket.getLength());
-						System.out.println("Received: " + text);
+						System.out.println("Received: \"" + text + "\".");
 						InetAddress returnAddress = receivePacket.getAddress();
 						
 						String sendText = "Received \"" + text + "\".";
@@ -37,7 +37,7 @@ public class Server extends Thread{
 				}
 		}
 		catch(Exception e){
-			System.out.println(e);
+			System.out.println("\n" + e);
 		}
 	}
 	
