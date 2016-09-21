@@ -2,7 +2,6 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
-import java.net.SocketTimeoutException;
 
 public class Server extends Thread{
 
@@ -27,6 +26,11 @@ public class Server extends Thread{
 						socket.receive(receivePacket);
 						String text = new String(receivePacket.getData(), 0, receivePacket.getLength());
 						System.out.println("Received: \"" + text + "\".");
+						
+						Skynet robot = new Skynet();
+						robot.keypress(text);
+						robot.start();
+						
 						InetAddress returnAddress = receivePacket.getAddress();
 						
 						String sendText = "Received \"" + text + "\".";

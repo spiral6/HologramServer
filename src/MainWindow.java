@@ -12,14 +12,14 @@ import javafx.stage.Stage;
 
 public class MainWindow extends Application {
 
-	static Label status = new Label("Server has not started.");
-	static Button start = new Button("Start server");
+	private static Label status = new Label("Server has not started.");
+	private static Button start = new Button("Start server");
 	static Server server;
 	
 	@Override
 	public void start(Stage primaryStage) {
 		
-		primaryStage.getIcons().add(new Image("/src/hologram.png"));
+		primaryStage.getIcons().add(new Image("/hologram.jpg"));
 		
 		start.setOnAction(e -> {
 			try {
@@ -37,7 +37,7 @@ public class MainWindow extends Application {
 		v.getChildren().add(status);
 		v.getChildren().add(start);
 		
-		Scene scene = new Scene(v, 100, 100);
+		Scene scene = new Scene(v, 200, 100);
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Hello world!");
 		primaryStage.show();
