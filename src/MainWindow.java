@@ -1,4 +1,7 @@
 
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
 import java.net.SocketException;
 
 import javafx.application.Application;
@@ -14,7 +17,9 @@ public class MainWindow extends Application {
 
 	private static Label status = new Label("Server has not started.");
 	private static Button start = new Button("Start server");
+	private static Robot robot;
 	static Server server;
+	static MainWindow window;
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -41,6 +46,9 @@ public class MainWindow extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Hello world!");
 		primaryStage.show();
+		
+		 
+		
 	}
 	
 	public static void click() throws SocketException, InterruptedException{
@@ -66,8 +74,33 @@ public class MainWindow extends Application {
 	
 	}
 
-	public static void main(String[] args) throws SocketException {
+	
+	public static void main(String[] args) throws SocketException, AWTException {
+		robot = new Robot();
 		server = new Server();
 		launch(args);
+	}
+	
+	
+	public static void keypress(String command){
+		
+		System.out.println(command);
+		
+		int key;
+		switch(command){
+			case "up": key = KeyEvent.VK_UP; break;
+			case "down": key = KeyEvent.VK_DOWN; break;
+			case "left": key = KeyEvent.VK_LEFT; break;
+			case "right": key = KeyEvent.VK_RIGHT; break;
+			default: key = 0; break;
+		}
+		if(!(key == 0)){
+			robot.keyPress(key);
+			robot.keyRelease(key);
+			System.out.println("Printed " + command + ".");
+		}
+		else{
+			System.out.println("Keypress is null. Not doing anything.");
+		}
 	}
 }

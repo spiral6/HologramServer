@@ -9,6 +9,8 @@ public class Server extends Thread{
 	public static int port = 23459;
 	public boolean ranOnce = false;
 	
+	
+	
 	public Server() throws SocketException{
 		socket = new DatagramSocket(port);
 		//socket.setSoTimeout(5000);
@@ -27,9 +29,7 @@ public class Server extends Thread{
 						String text = new String(receivePacket.getData(), 0, receivePacket.getLength());
 						System.out.println("Received: \"" + text + "\".");
 						
-						Skynet robot = new Skynet();
-						robot.keypress(text);
-						robot.start();
+						MainWindow.keypress(text);
 						
 						InetAddress returnAddress = receivePacket.getAddress();
 						
@@ -40,6 +40,7 @@ public class Server extends Thread{
 				}
 		}
 		catch(Exception e){
+			e.printStackTrace();
 			//System.out.println("\n" + e);
 			System.out.println("Server closed.");
 		}
